@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    // 双向绑定 表单
+    // 当数据一改动 我就要通知视图更新 
+    let obj = {name:'zfpx',n:{n:1}}
+    // obj.name = 'hello';
+    // alert(视图更新)
+    function oberseve(obj){
+        if(typeof obj !== 'object')return ;
+        for(let key in obj){
+            defineReactive(obj,key,obj[key]);
+            oberseve(obj[key])
+        }
+    }
+    function defineReactive(target,property,value){
+        Object.defineProperty(target,property,{
+            get(){
+                return value;
+            },
+            set(newValue){
+                // 如果设置的值和原有的值相同 那就忽略更新即可
+                if(newValue === value)return;
+                alert('更新视图');
+                value = newValue;
+            }
+        })
+    }
+    oberseve(obj);
+    console.log(obj);
+    // proxy 可以实现 我们的数据劫持
+    </script>
+
+</body>
+
+</html>

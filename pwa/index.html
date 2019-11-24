@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon-iphone.png" />
+    <meta name="apple-mobile-web-app-title" content="标题">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" href="/index.css">
+    <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+    <div>
+        <h2>我的动漫网站</h2>
+        <ul id="container">
+
+        </ul>
+    </div>
+    <script src="/index.js"></script>
+    <!-- 我们需要开启一条线程 实现  离线缓存 -->
+    <!-- 下次访问我的时候 去缓存 -->
+    <script>
+        window.addEventListener('load', async () => {
+            if ('serviceWorker' in navigator) {
+                // 需要注册一个serviceWorker  都是promise then await
+                // 默认指向的是 sw文件存放的地方
+                let registration = await navigator.serviceWorker.register('./sw.js');
+            }
+            Notification.requestPermission().then(r => {
+                if (r === 'granted') {
+                    new Notification('用户允许了', {
+                        body: '呵呵 我可以给你推消息了'
+                    })
+                }
+            })
+        });
+        // PUSH API + Notifaction
+        // app shell app skeleton
+        // ssr + serviceWorker
+    </script>
+</body>
+
+</html>

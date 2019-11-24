@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #box {
+      position: relative
+    }
+
+    #box div {
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    #box :nth-child(1) {
+      top: 0;
+    }
+
+    #box :nth-child(2) {
+      top: 120px;
+    }
+
+    #box :nth-child(3) {
+      top: 240px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <script>
+    let box = document.getElementById('box');
+    let balls = box.querySelectorAll('div');
+    function move(ele, distance) {
+      return new Promise((resolve, reject) => {
+        let pos = 0;
+        let timer = setInterval(() => {
+          pos += 2;
+          if (pos >= distance) {
+            clearInterval(timer);
+            resolve();
+          } else {
+            ele.style.left = pos + 'px';
+          }
+        }, 13);
+      })
+    }
+    async function m() {
+      await move(balls[0], 500);
+      await move(balls[1], 300);
+      await move(balls[2], 100);
+    }
+    m().then(data => {
+      alert('ok1')
+    });
+    //generator 
+    // function * m() {
+    //   yield move(balls[0], 500)
+    //   yield move(balls[1], 300)
+    //   yield move(balls[2], 100)
+    // }
+    // function co(it) {
+    //   return new Promise((resolve,reject)=>{
+    //     function next(data) {
+    //        let {value,done} =  it.next(data);
+    //        if(!done){
+    //          value.then(data=>{
+    //            next(data);
+    //          },reject)
+    //        }else{
+    //          resolve(value);
+    //        }
+    //     }
+    //     next();
+    //   })
+    // }
+    // co(m()).then(data=>{
+    //     alert('ok')
+    // })
+    // move(balls[0], 500).then(data => {
+    //   return move(balls[1], 300)
+    // }).then(data => {
+    //   return move(balls[2], 300)
+    // }).then(data => {
+    //   alert('成功')
+    // })
+    // callback
+    // let box = document.getElementById('box');
+    // let balls = box.querySelectorAll('div');
+    // function move(ele,distance,callback) {
+    //   let pos = 0;
+    //   let timer = setInterval(()=>{
+    //     pos+=2;
+    //     if(pos >= distance){
+    //       clearInterval(timer);
+    //       callback();
+    //     }else{
+    //       ele.style.left = pos+'px';
+    //     }
+    //   },13);
+    // }
+    // move(balls[0],500,function () {
+    //   move(balls[1], 300, function () {
+    //     move(balls[2], 100, function () {
+    //       alert('ok到达')
+    //     })
+    //   })
+    // });
+      
+    
+    // 这周的作业：是写一篇文章 md文件  es6 / promise / async-await / callback 偏函数 柯里化
+    // 课程安排 2 4 不上课 promise  从下周六开始 就是正常上课 
+    // 周五固定的公开课
+  </script>
+
+</body>
+
+</html>

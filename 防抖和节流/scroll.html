@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <meta http-equiv="X-UA-Compatible" content="ie = edge"/>
+ <title>珠峰架构师公开课</title>
+</head>
+<!-- 下一期 架构课 11.24号 周 2，4 8-10 周六全天   -->
+<body style="height:20000000px">
+  <script>
+    let flag = false;
+    function scroll() {
+      if(!flag){
+        flag = true
+        requestAnimationFrame(loggeer)
+      }
+    }
+    function loggeer() {
+      console.log('logger');
+      flag = false;
+    }
+    window.addEventListener('scroll',scroll)
+    </script>
+</body>
+</html>

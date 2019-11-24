@@ -1,0 +1,27 @@
+{
+  "name": "webpack-public",
+  "version": "1.0.0",
+  "description": "模块化是指把一个复杂的系统分解到多个模块以方便编码。",
+  "main": "a.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhufengzhufeng/webpack-public.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhufengzhufeng/webpack-public/issues"
+  },
+  "homepage": "https://github.com/zhufengzhufeng/webpack-public#readme",
+  "devDependencies": {
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7"
+  }
+}

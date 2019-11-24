@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    line-height: 40px;
+}
+
+ul {
+    padding: 0 20px;
+}
+
+ul li {
+    list-style: none;
+    width: 50%;
+    display: inline-block;
+    height: 100px
+}
+
+li img {
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "ast-lesson",
+  "version": "1.0.0",
+  "description": "- 解析我们的语法(js)=> 语法树\r - 遍历树(先序深度优先) => 更改树的内容\r - 生成新的内容",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.6.6",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-types": "^6.26.0",
+    "escodegen": "^1.10.0",
+    "esprima": "^4.0.0",
+    "estraverse": "^4.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "webpack": "^4.16.0",
+    "webpack-cli": "^3.0.8"
+  }
+}

@@ -1,0 +1,14 @@
+body{
+  background: blue;
+  transform: translate(45deg)
+}
+
+.w{
+  color:red;
+}
+.h{
+  color:red
+}
+.a{
+  color:red
+}

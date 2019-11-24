@@ -1,0 +1,23 @@
+{
+  "name": "koa-public",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhufengzhufeng/koa-public-5-31.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhufengzhufeng/koa-public-5-31/issues"
+  },
+  "homepage": "https://github.com/zhufengzhufeng/koa-public-5-31#readme",
+  "dependencies": {
+    "koa": "^2.5.1"
+  }
+}

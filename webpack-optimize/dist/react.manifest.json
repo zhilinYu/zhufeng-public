@@ -1,0 +1,71 @@
+{
+  "name": "react_dll",
+  "content": {
+    "./node_modules/react-dom/index.js": {
+      "id": "./node_modules/react-dom/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/react/cjs/react.development.js": {
+      "id": "./node_modules/react/cjs/react.development.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/object-assign/index.js": {
+      "id": "./node_modules/object-assign/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/prop-types/checkPropTypes.js": {
+      "id": "./node_modules/prop-types/checkPropTypes.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/prop-types/lib/ReactPropTypesSecret.js": {
+      "id": "./node_modules/prop-types/lib/ReactPropTypesSecret.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/react/index.js": {
+      "id": "./node_modules/react/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/react-dom/cjs/react-dom.development.js": {
+      "id": "./node_modules/react-dom/cjs/react-dom.development.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/schedule/index.js": {
+      "id": "./node_modules/schedule/index.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/schedule/cjs/schedule.development.js": {
+      "id": "./node_modules/schedule/cjs/schedule.development.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/schedule/tracking.js": {
+      "id": "./node_modules/schedule/tracking.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    },
+    "./node_modules/schedule/cjs/schedule-tracking.development.js": {
+      "id": "./node_modules/schedule/cjs/schedule-tracking.development.js",
+      "buildMeta": {
+        "providedExports": true
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>珠峰培训 http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+  <input type="text" zf-model="a">
+  <input type="text" zf-model="b">
+  {{a}}{{b}}
+  <div>{{b}}</div>
+</div>
+<script>
+  class ViewModel{
+    constructor(data){
+      this.data = data;
+      this.nodes = [];
+    }
+    bindNode(node){
+      this.nodes.push(node);
+    }
+    update(){
+      this.nodes.forEach(node=>{
+        if(node.nodeType === 1){
+          node.value = this.parent[node.getAttribute('zf-model')].data;
+        }else{
+          node.textContent = node.text.replace(/\{\{([^}]*)\}\}/g, (...arg)=> {
+            return this.parent[arg[1]].data;
+          })
+        }
+      });
+    }
+    setVal(val){
+      if(val === this.data)return;
+      this.data = val;
+      this.update();
+    }
+    getVal(){
+      return this.data;
+    }
+  }
+  class Compile{
+    init(el,obj){
+      let ele = document.querySelector(el);
+      let fragment  = document.createDocumentFragment();
+      let child;
+      while (child = ele.firstChild){
+        fragment.appendChild(child);
+      }
+      function replace(fragment) {
+        [...fragment.childNodes].forEach((node)=>{
+          let text = node.textContent;
+          let reg = /\{\{([^}]*)\}\}/g;
+          if(node.nodeType === 1){ // 元素
+            let attrs = node.attributes;
+            [...attrs].forEach(attr=>{
+              let {name,value} = attr;
+              if(name.includes('zf-')){
+                obj[value].bindNode(node);
+                node.addEventListener('input',function (e) {
+                  obj[value].setVal(e.target.value)
+                })
+              }
+            })
+          }
+          if(node.nodeType === 3&&text.match(reg)){ //文本节点
+            node.text = text;
+            text.replace(reg,function () {
+              return obj[arguments[1]].bindNode(node)
+            })
+          }
+          if(node.childNodes.length){
+            replace(node)
+          }
+        });
+      }
+      replace(fragment);
+      ele.appendChild(fragment);
+      Object.keys(obj).forEach(function (key) {
+        obj[key].parent = obj; // 让所有的模型记住所有的数据，因为模型进行更新时 不一定单单只有自己的数据
+        obj[key].update();
+      });
+    }
+  }
+  let obj = {a:new ViewModel(1),b:new ViewModel(2)};
+  new Compile().init('#app',obj);
+</script>
+</body>
+</html>

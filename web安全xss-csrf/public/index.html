@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>评论页面</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h2>评论页面</h2>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <form onsubmit="addComment(event)">
+                <div class="form-group">
+                  <label for="content" class="control-label">内容</label>
+                  <input type="text" id="content" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="发表" class="btn btn-primary">
+                  <a href="/pay.html" class="btn btn-danger">去转账</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script>
+    function getList() {
+      $.get('/api/list').then(res=>{
+        if(res.code === 0){
+          let html = ``;
+          res.comments.forEach(element => {
+            html+=`<li class="list-group-item">${element.username} ${element.content}</li>`
+          });
+          $('.list-group').html(html);
+        }
+      })
+    }
+    getList();
+
+    // 1.客户端传递给服务器时 需要校验先过滤一下
+    // 2.服务端在做一次过滤
+    // 3.直接在输出的时候过滤
+    function encodeHtml(str){
+      return str.replace(/&/g,'&amp;').
+          replace(/"/g,'&quot;').
+          replace(/'/g,'&apos;').
+          replace(/</g,'&lt;').
+          replace(/>/g,'&gt;')
+    }
+    function addComment(e) {
+      e.preventDefault();
+      // 发表功能 
+      let content = $('#content').val();
+      console.log(content);
+      $.post('/api/addcomment',{content}).then(res=>{
+        if(res.code === 1){
+          location.href = '/login.html';
+        }else{
+          getList(); // 评论成功获取最新列表
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
+ <!-- 微博 访问时会以自己的身份发一条恶意微博 -->

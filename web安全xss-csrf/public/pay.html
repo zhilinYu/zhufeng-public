@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>转账页面</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h2>
+                转账页面
+                <p>用户: <span id="u"></span></p>
+                <p>金额: <span id="m"></span></p>
+
+              </h2>
+            </div>
+            <div class="panel-body">
+              <form onsubmit="transfer(event)">
+                <div class="form-group">
+                  <label for="target" class="control-label">收款人</label>
+                  <input type="text" id="target" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="money" class="control-label">金额</label>
+                  <input type="text" id="money" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="code" class="control-label" id="picture"></label>
+                  <input type="text" id="code" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="转账" class="btn btn-primary">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script>
+    function getUserInfo() {
+      $.get('/api/userinfo').then(res=>{
+        if(res.code === 1){
+          location.href = '/login.html';
+        }else{
+          let {username,money,svg} = res.user;
+          $('#u').html(username)
+          $('#m').html(money);
+          $('#picture').html(svg);
+        }
+      })
+    }
+    getUserInfo();
+    function transfer(e) {
+      e.preventDefault();
+      let target = $('#target').val();
+      let money = $('#money').val();
+      let code = $('#code').val();
+      let token = document.cookie.match(/connect.sid=([^;]*)/)  || [];    
+      $.post('/api/transfer',{target,money, code,token: 'my_'+token[1]}).then(res=>{
+        if(res.code === 0){
+           getUserInfo();
+        }else{
+           location.href = '/login.html';
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // proxy名字叫代理 可以代理我们的数据 (拦截 get set apply has....)
+        let obj = {name:'zfpx',n:{n:1}};
+        function set(obj,callback){
+            let proxy = new Proxy(obj,{
+                set(target,property,value){
+                    alert(property+'视图更新');
+                    target[property] = value;
+                }
+            });
+            callback(proxy);
+        }
+        // 双向绑定的实现原理
+        set(obj,function(obj){
+            obj.name = 'hello'
+        }); 
+        set(obj.n,function(obj){
+            obj.n = 'hello'
+        }); 
+        // let obj = {name:'zfpx'}
+        // let proxy = new Proxy(obj,{ 
+        //     set(target,property,value){
+        //         alert('数据更新');
+        //         target[property] = value;
+        //         //Reflect.set(target,property,value)
+        //     }
+        // });
+        // proxy.name = 'newValue'; // 深度去更新
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="school.name">
+        <div>{{school.name}}</div>
+        <div>{{school.age}}</div>
+        <!-- 如果数据不变化 视图就不会刷新 -->
+        {{getNewName}} 
+        <!-- 我们在内部 会匹配  {{}} -->
+        <ul>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+        <button v-on:click="change">更新操作</button>
+        <div v-html="message"></div>
+    </div>
+    <script src="MVVM.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                school:{
+                    name:'珠峰',
+                    age:10
+                },
+                message:'<h1>欢迎大家</h1>'
+            },
+            computed:{
+                getNewName(){
+                    return this.school.name +'架构'
+                }
+            },
+            methods:{
+                change(){
+                    this.school.name = '姜文'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+
+
+<!-- 3月 16 架构课2期开班  2 4 晚上  8－10 周六是全天 -->
+
+
+<!-- {{getNewName}}  this.school.name  [watcher] -->
+
+<!-- 三个月时间 webpack 数据 vue react node （express+koa）  算法 设计模式 -->
+
+
+<!-- 腾讯课堂 有一个 你报名的课程 点击 评价 -->

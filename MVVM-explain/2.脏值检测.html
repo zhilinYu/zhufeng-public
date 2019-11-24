@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>珠峰培训 http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div id="app">
+  <input type="text" zf-model="a">
+  <input type="text" zf-model="b">
+  {{a}}{{b}}
+  <div>{{b}}</div>
+</div>
+<script>
+  class Scope{
+    constructor(){
+      this.$$watchers = [];
+      this.nodes = [];
+    }
+    $watch(exp,fn){
+      this.$$watchers.push({
+        exp,
+        fn,
+        last:this[exp]
+      })
+    }
+    $digestOne(){
+      let dirty = false;
+      this.$$watchers.forEach(watcher=>{
+        let oldVal = watcher.last;
+        let newVal = this[watcher.exp];
+        if(newVal!== oldVal){
+          dirty = true;
+          watcher.fn(newVal,oldVal);
+          watcher.last = newVal;
+        }
+      });
+      return dirty;
+    }
+    $digest(){
+      let dirty = true;
+      let count = 9;
+      do{
+        dirty = this.$digestOne();
+        if(!count)throw new Error('10 interators Aborting')
+      }while (dirty&&count--);
+      this.update();
+    }
+    $apply(){
+      this.$digest();
+    }
+    bindNode(node){
+      this.nodes.push(node);
+    }
+    update(){
+      this.nodes.forEach(node=>{
+        if(node.nodeType === 1){
+          node.value = this[node.getAttribute('zf-model')];
+        }else{
+          node.textContent = node.text.replace(/\{\{([^}]*)\}\}/g, (...arg)=> {
+            return this[arg[1]];
+          })
+        }
+      });
+    }
+  }
+  class Compile{
+    init(el,scope){
+      let ele = document.querySelector(el);
+      let fragment  = document.createDocumentFragment();
+      let child;
+      while (child = ele.firstChild){
+        fragment.appendChild(child);
+      }
+      function replace(fragment) {
+        [...fragment.childNodes].forEach((node)=>{
+          let text = node.textContent;
+          let reg = /\{\{([^}]*)\}\}/g;
+          if(node.nodeType === 1){ // 元素
+            let attrs = node.attributes;
+            [...attrs].forEach(attr=>{
+              let {name,value} = attr;
+              if(name.includes('zf-')){
+                scope.bindNode(node);
+                node.addEventListener('input',function (e) {
+                  scope[value] = e.target.value;
+                  scope.$apply();
+                })
+              }
+            })
+          }
+          if(node.nodeType === 3&&text.match(reg)){ //文本节点
+            node.text = text;
+            text.replace(reg,function () {
+              return scope.bindNode(node)
+            })
+          }
+          if(node.childNodes.length){
+            replace(node)
+          }
+        });
+      }
+      replace(fragment);
+      ele.appendChild(fragment);
+      Object.keys(scope).forEach(function (key) {
+        scope.update();
+      });
+    }
+  }
+  let scope = new Scope();
+  scope.a = 'zfpx';
+  scope.b = 18;
+  new Compile().init('#app',scope);
+</script>
+</body>
+</html>
